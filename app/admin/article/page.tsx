@@ -1,11 +1,28 @@
 "use client"
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useRef } from 'react';
+
+/* quill stuff */
+/*
+import Quill from 'quill';
+import Editor from '@/app/components/forms/Editor';
+const Delta = Quill.import('delta');*/
+
+import MyEditor from '@/app/components/forms/MyEditor';
+
+/* /quill */
 
 export default function AdminArticle() {
 
     const [articleTitle, setArticleTitle] = useState('');
     const [articleText, setArticleText] = useState('');
     const [articleCategory, setArticleCategory] = useState('');
+
+    /* quill */
+    const [range, setRange] = useState();
+    const [lastChange, setLastChange] = useState();
+
+    const quillRef = useRef();
+    /* /quill */
 
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -62,6 +79,9 @@ export default function AdminArticle() {
                         id="articleCategory"
                         onChange={(e) => setArticleCategory(e.target.value)}
                     />
+                </div>
+                <div className='h-100 w-100 bg-white'>
+                    <MyEditor />
                 </div>
                 <button type='submit'>Send</button>
             </form>
